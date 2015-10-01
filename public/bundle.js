@@ -46,12 +46,22 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	var Router = __webpack_require__(157);
-	var routes = __webpack_require__(196);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	Router.run(routes, function (Root) {
-	  React.render(React.createElement(Root, null), document.getElementById('app'));
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(157);
+
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+
+	var _configRoutes = __webpack_require__(196);
+
+	var _configRoutes2 = _interopRequireDefault(_configRoutes);
+
+	_reactRouter2['default'].run(_configRoutes2['default'], function (Root, state) {
+	  _react2['default'].render(_react2['default'].createElement(Root, state), document.getElementById('app'));
 	});
 
 /***/ },
@@ -23565,11 +23575,16 @@
 
 	var _componentsHome2 = _interopRequireDefault(_componentsHome);
 
+	var _componentsProfile = __webpack_require__(199);
+
+	var _componentsProfile2 = _interopRequireDefault(_componentsProfile);
+
 	var _reactRouter = __webpack_require__(157);
 
 	exports['default'] = _react2['default'].createElement(
 	  _reactRouter.Route,
 	  { name: 'app', path: '/', handler: _componentsMain2['default'] },
+	  _react2['default'].createElement(_reactRouter.Route, { name: 'profile', path: 'profile/:username', handler: _componentsProfile2['default'] }),
 	  _react2['default'].createElement(_reactRouter.DefaultRoute, { handler: _componentsHome2['default'] })
 	);
 	module.exports = exports['default'];
@@ -23650,6 +23665,194 @@
 
 	exports["default"] = Home;
 	module.exports = exports["default"];
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(157);
+
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+
+	var _GithubRepos = __webpack_require__(200);
+
+	var _GithubRepos2 = _interopRequireDefault(_GithubRepos);
+
+	var _GithubUserProfile = __webpack_require__(201);
+
+	var _GithubUserProfile2 = _interopRequireDefault(_GithubUserProfile);
+
+	var _NotesNotes = __webpack_require__(202);
+
+	var _NotesNotes2 = _interopRequireDefault(_NotesNotes);
+
+	var Profile = _react2['default'].createClass({
+	  displayName: 'Profile',
+
+	  mixins: [_reactRouter2['default'].State],
+	  getInitialState: function getInitialState() {
+	    return {
+	      notes: ['note1', 'note2'],
+	      bio: { name: 'dpg5000' },
+	      repos: [1, 2, 3]
+	    };
+	  },
+	  render: function render() {
+	    var username = this.getParams().username;
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2['default'].createElement(
+	        'div',
+	        { className: 'col-md-4' },
+	        _react2['default'].createElement(_GithubUserProfile2['default'], { username: username, bio: this.state.bio })
+	      ),
+	      _react2['default'].createElement(
+	        'div',
+	        { className: 'col-md-4' },
+	        _react2['default'].createElement(_GithubRepos2['default'], { username: username, repos: this.state.repos })
+	      ),
+	      _react2['default'].createElement(
+	        'div',
+	        { className: 'col-md-4' },
+	        _react2['default'].createElement(_NotesNotes2['default'], { username: username, notes: this.state.notes })
+	      )
+	    );
+	  }
+	});
+
+	exports['default'] = Profile;
+	module.exports = exports['default'];
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var Repos = _react2["default"].createClass({
+	  displayName: "Repos",
+
+	  render: function render() {
+	    return _react2["default"].createElement(
+	      "div",
+	      null,
+	      _react2["default"].createElement(
+	        "h3",
+	        null,
+	        " user repos "
+	      ),
+	      _react2["default"].createElement("ul", { className: "list-group" })
+	    );
+	  }
+	});
+
+	exports["default"] = Repos;
+	module.exports = exports["default"];
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var UserProfiles = _react2["default"].createClass({
+	  displayName: "UserProfiles",
+
+	  render: function render() {
+	    return _react2["default"].createElement(
+	      "div",
+	      null,
+	      _react2["default"].createElement(
+	        "h3",
+	        null,
+	        " user profile "
+	      ),
+	      _react2["default"].createElement(
+	        "ul",
+	        { className: "list-group" },
+	        "username: ",
+	        this.props.username,
+	        " ",
+	        _react2["default"].createElement("br", null),
+	        "bio: ",
+	        this.props.bio
+	      )
+	    );
+	  }
+	});
+
+	exports["default"] = UserProfiles;
+	module.exports = exports["default"];
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var Notes = _react2['default'].createClass({
+	  displayName: 'Notes',
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      null,
+	      _react2['default'].createElement(
+	        'h3',
+	        null,
+	        ' notes for ',
+	        this.props.username,
+	        ' '
+	      )
+	    );
+	  }
+	});
+
+	exports['default'] = Notes;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
