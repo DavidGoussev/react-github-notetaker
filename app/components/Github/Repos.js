@@ -1,11 +1,13 @@
 import React from 'react';
 
 var Repos = React.createClass({
-  render(){
+  render() {
     return (
       <div>
-        <h3> user repos </h3>
+        <h3> user profile </h3>
         <ul className="list-group">
+          username: {this.props.username} <br />
+          repos: {this.props.repos}
         </ul>
       </div>
     )
