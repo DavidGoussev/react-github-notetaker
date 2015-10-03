@@ -23779,8 +23779,7 @@
 	      repos: []
 	    };
 	  },
-	  componentDidMount: function componentDidMount() {
-	    this.ref = new _firebase2['default']('https://glaring-fire-2636.firebaseio.com');
+	  init: function init() {
 	    var childRef = this.ref.child(this.getParams().username);
 	    this.bindAsArray(childRef, 'notes');
 
@@ -23791,8 +23790,16 @@
 	      });
 	    }).bind(this));
 	  },
+	  componentDidMount: function componentDidMount() {
+	    this.ref = new _firebase2['default']('https://glaring-fire-2636.firebaseio.com');
+	    this.init();
+	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.unbind('notes');
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps() {
+	    this.unbind('notes');
+	    this.init();
 	  },
 	  handleAddNote: function handleAddNote(newNote) {
 	    this.ref.child(this.getParams().username).set(this.state.notes.concat([newNote]));
@@ -23837,37 +23844,79 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var Repos = _react2["default"].createClass({
-	  displayName: "Repos",
+	var Repos = (function (_React$Component) {
+	  _inherits(Repos, _React$Component);
 
-	  render: function render() {
-	    return _react2["default"].createElement(
-	      "div",
-	      null,
-	      _react2["default"].createElement(
-	        "h3",
-	        null,
-	        " user profile "
-	      ),
-	      _react2["default"].createElement(
-	        "ul",
-	        { className: "list-group" },
-	        "username: ",
-	        this.props.username,
-	        " ",
-	        _react2["default"].createElement("br", null),
-	        "repos: ",
-	        this.props.repos
-	      )
-	    );
+	  function Repos() {
+	    _classCallCheck(this, Repos);
+
+	    _get(Object.getPrototypeOf(Repos.prototype), "constructor", this).apply(this, arguments);
 	  }
-	});
+
+	  _createClass(Repos, [{
+	    key: "render",
+	    value: function render() {
+	      var repos = this.props.repos.map(function (repo, index) {
+	        return _react2["default"].createElement(
+	          "li",
+	          { className: "list-group-item", key: index },
+	          repo.html_url && _react2["default"].createElement(
+	            "h4",
+	            null,
+	            _react2["default"].createElement(
+	              "a",
+	              { href: repo.html_url },
+	              repo.name
+	            )
+	          ),
+	          repo.description && _react2["default"].createElement(
+	            "p",
+	            null,
+	            " ",
+	            repo.description
+	          )
+	        );
+	      });
+	      return _react2["default"].createElement(
+	        "div",
+	        null,
+	        _react2["default"].createElement(
+	          "h3",
+	          null,
+	          " User Repos "
+	        ),
+	        _react2["default"].createElement(
+	          "ul",
+	          { className: "list-group" },
+	          repos
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Repos;
+	})(_react2["default"].Component);
+
+	;
+
+	Repos.propTypes = {
+	  username: _react2["default"].PropTypes.string.isRequired,
+	  repos: _react2["default"].PropTypes.array.isRequired
+	};
 
 	exports["default"] = Repos;
 	module.exports = exports["default"];
@@ -23882,37 +23931,122 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var UserProfiles = _react2["default"].createClass({
-	  displayName: "UserProfiles",
+	var UserProfiles = (function (_React$Component) {
+	  _inherits(UserProfiles, _React$Component);
 
-	  render: function render() {
-	    return _react2["default"].createElement(
-	      "div",
-	      null,
-	      _react2["default"].createElement(
-	        "h3",
-	        null,
-	        " user profile "
-	      ),
-	      _react2["default"].createElement(
-	        "ul",
-	        { className: "list-group" },
-	        "username: ",
-	        this.props.username,
-	        " ",
-	        _react2["default"].createElement("br", null),
-	        "bio: ",
-	        this.props.bio
-	      )
-	    );
+	  function UserProfiles() {
+	    _classCallCheck(this, UserProfiles);
+
+	    _get(Object.getPrototypeOf(UserProfiles.prototype), "constructor", this).apply(this, arguments);
 	  }
-	});
+
+	  _createClass(UserProfiles, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2["default"].createElement(
+	        "div",
+	        null,
+	        _react2["default"].createElement(
+	          "h3",
+	          null,
+	          " User Profile "
+	        ),
+	        _react2["default"].createElement(
+	          "ul",
+	          { className: "list-group" },
+	          this.props.bio.avatar_url && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            " ",
+	            _react2["default"].createElement("img", { src: this.props.bio.avatar_url, className: "img-rounded img-responsive" })
+	          ),
+	          this.props.bio.name && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Name: ",
+	            this.props.bio.name
+	          ),
+	          this.props.bio.login && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Username: ",
+	            this.props.bio.login
+	          ),
+	          this.props.bio.email && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Email: ",
+	            this.props.bio.email
+	          ),
+	          this.props.bio.location && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Location: ",
+	            this.props.bio.location
+	          ),
+	          this.props.bio.company && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Company: ",
+	            this.props.bio.company
+	          ),
+	          this.props.bio.followers > 0 ? _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Followers: ",
+	            this.props.bio.followers
+	          ) : "",
+	          this.props.bio.following > 0 ? _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Following: ",
+	            this.props.bio.following
+	          ) : "",
+	          this.props.bio.public_repos && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Public Repos: ",
+	            this.props.bio.public_repos
+	          ),
+	          this.props.bio.blog && _react2["default"].createElement(
+	            "li",
+	            { className: "list-group-item" },
+	            "Blog: ",
+	            _react2["default"].createElement(
+	              "a",
+	              { href: this.props.bio.blog },
+	              " ",
+	              this.props.bio.blog
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return UserProfiles;
+	})(_react2["default"].Component);
+
+	;
+
+	UserProfiles.propTypes = {
+	  username: _react2["default"].PropTypes.string.isRequired,
+	  bio: _react2["default"].PropTypes.object.isRequired
+	};
 
 	exports["default"] = UserProfiles;
 	module.exports = exports["default"];
@@ -23979,32 +24113,53 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var NotesList = _react2["default"].createClass({
-	  displayName: "NotesList",
+	var NotesList = (function (_React$Component) {
+	  _inherits(NotesList, _React$Component);
 
-	  render: function render() {
-	    var notes = this.props.notes.map(function (note, index) {
-	      return _react2["default"].createElement(
-	        "li",
-	        { className: "list-group-item", key: index },
-	        " ",
-	        note,
-	        " "
-	      );
-	    });
-	    return _react2["default"].createElement(
-	      "ul",
-	      { className: "list-group" },
-	      notes
-	    );
+	  function NotesList() {
+	    _classCallCheck(this, NotesList);
+
+	    _get(Object.getPrototypeOf(NotesList.prototype), "constructor", this).apply(this, arguments);
 	  }
-	});
+
+	  _createClass(NotesList, [{
+	    key: "render",
+	    value: function render() {
+	      var notes = this.props.notes.map(function (note, index) {
+	        return _react2["default"].createElement(
+	          "li",
+	          { className: "list-group-item", key: index },
+	          " ",
+	          note,
+	          " "
+	        );
+	      });
+	      return _react2["default"].createElement(
+	        "ul",
+	        { className: "list-group" },
+	        notes
+	      );
+	    }
+	  }]);
+
+	  return NotesList;
+	})(_react2["default"].Component);
+
+	;
 
 	exports["default"] = NotesList;
 	module.exports = exports["default"];
@@ -24019,41 +24174,65 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var AddNote = _react2['default'].createClass({
-	  displayName: 'AddNote',
+	var AddNote = (function (_React$Component) {
+	  _inherits(AddNote, _React$Component);
 
-	  propTypes: {
-	    username: _react2['default'].PropTypes.string.isRequired,
-	    addNote: _react2['default'].PropTypes.func.isRequired
-	  },
-	  handleSubmit: function handleSubmit() {
-	    var newNote = this.refs.note.getDOMNode().value;
-	    this.refs.note.getDOMNode().value = '';
-	    this.props.addNote(newNote);
-	  },
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: 'input-group' },
-	      _react2['default'].createElement('input', { type: 'text', className: 'form-control', ref: 'note', placeholder: 'add new note' }),
-	      _react2['default'].createElement(
-	        'span',
-	        { className: 'input-group-btn' },
-	        _react2['default'].createElement(
-	          'button',
-	          { className: 'btn btn-default', type: 'button', onClick: this.handleSubmit },
-	          ' submit '
-	        )
-	      )
-	    );
+	  function AddNote() {
+	    _classCallCheck(this, AddNote);
+
+	    _get(Object.getPrototypeOf(AddNote.prototype), 'constructor', this).apply(this, arguments);
 	  }
-	});
+
+	  _createClass(AddNote, [{
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      var newNote = this.refs.note.getDOMNode().value;
+	      this.refs.note.getDOMNode().value = '';
+	      this.props.addNote(newNote);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'input-group' },
+	        _react2['default'].createElement('input', { type: 'text', className: 'form-control', ref: 'note', placeholder: 'add new note' }),
+	        _react2['default'].createElement(
+	          'span',
+	          { className: 'input-group-btn' },
+	          _react2['default'].createElement(
+	            'button',
+	            { className: 'btn btn-default', type: 'button', onClick: this.handleSubmit.bind(this) },
+	            ' submit '
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return AddNote;
+	})(_react2['default'].Component);
+
+	;
+
+	AddNote.propTypes = {
+	  username: _react2['default'].PropTypes.string.isRequired,
+	  addNote: _react2['default'].PropTypes.func.isRequired
+	};
 
 	exports['default'] = AddNote;
 	module.exports = exports['default'];
